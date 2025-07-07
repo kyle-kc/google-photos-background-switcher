@@ -17,8 +17,8 @@ Firefox profile that you use for other purposes, you will want to create a new p
 1. Ensure you have Firefox installed.
 2. Open Firefox and create a new profile, if needed.
 3. Navigate to https://photos.google.com/ and follow the prompts to log in.
-4. Locate your Firefox profile directory. It should look something like "C:\Users\{your
-   username}\AppData\Roaming\Mozilla\Firefox\Profiles\{profile ID}{.default or .default-release}"
+4. Locate your Firefox profile directory. It should look something like "C:\Users\\{your
+   username}\AppData\Roaming\Mozilla\Firefox\Profiles\\{profile ID}{.default or .default-release}"
 5. Install dependencies:
 
    ```
