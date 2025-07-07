@@ -16,16 +16,17 @@ Firefox profile that you use for other purposes, you will want to create a new p
 
 1. Ensure you have Firefox installed.
 2. Open Firefox and create a new profile, if needed.
-3. Navigate to https://photos.google.com/ and follow the prompts to log in.
-4. Locate your Firefox profile directory. It should look something like "C:\Users\\{your
+3. In Firefox settings, find "Downloads" and set "Save files to" as the `downloaded-image` directory within this repository.
+4. Navigate to https://photos.google.com/ and follow the prompts to log in.
+5. Locate your Firefox profile directory. It should look something like "C:\Users\\{your
    username}\AppData\Roaming\Mozilla\Firefox\Profiles\\{profile ID}{.default or .default-release}"
-5. Install dependencies:
+6. Install dependencies:
 
    ```
    pip install -r requirements.txt
    ```
 
-6. Run the script:
+7. Run the script:
    ```
    usage: google-photos-background-switcher.py [-h] --firefox-profile FIREFOX_PROFILE --album-url ALBUM_URL
                                 
