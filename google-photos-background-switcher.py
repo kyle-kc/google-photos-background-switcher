@@ -8,7 +8,7 @@ from os.path import exists, join, isfile, islink, isdir, abspath
 from random import randint, choice
 from shutil import rmtree
 from time import sleep, time
-from winreg import OpenKey, HKEY_CURRENT_USER, KEY_SET_VALUE, SetValueEx, REG_SZ
+from winreg import OpenKey, HKEY_CURRENT_USER, KEY_SET_VALUE, SetValueEx, REG_SZ, HKEY_LOCAL_MACHINE, REG_DWORD
 
 from selenium import webdriver
 from selenium.webdriver import FirefoxProfile, FirefoxOptions, ActionChains, Keys
@@ -19,6 +19,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 LOG_FILE = "log"
 DOWNLOAD_DIRECTORY = "downloaded-image"
 WALLPAPER_REGISTRY_KEY = r"Control Panel\Desktop"
+LOCK_SCREEN_REGISTRY_KEY = r"SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP"
 TEMPORARY_FILE_EXTENSIONS = ('.part', '.tmp', '.crdownload')
 
 logging.basicConfig(
@@ -113,6 +114,14 @@ def set_as_wallpaper(image_path: str):
     logging.info(f"Wallpaper set.")
 
 
+def set_as_lock_screen(image_path: str):
+    logging.info(f"Setting {image_path} as lock screen...")
+    with OpenKey(HKEY_LOCAL_MACHINE, LOCK_SCREEN_REGISTRY_KEY, 0, KEY_SET_VALUE) as key:
+        SetValueEx(key, "LockScreenImagePath", 0, REG_SZ, abspath(image_path))
+        SetValueEx(key, "LockScreenImageStatus", 0, REG_DWORD, 1)
+    logging.info("Lock screen set.")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Set random Google Photos album image as wallpaper.")
     parser.add_argument(
@@ -161,6 +170,7 @@ if __name__ == "__main__":
         image_path = wait_for_download()
 
         set_as_wallpaper(image_path)
+        set_as_lock_screen(image_path)
 
     finally:
         driver.quit()
